@@ -1,0 +1,25 @@
+.container {
+        height: 450px;
+        width: auto;
+        overflow: auto;
+        // aspect-ratio: 2/1;
+      }
+      
+      table {
+        width: 100%;
+        // position: relative;  
+      }
+
+
+
+      .present{
+        color: #fff;
+         background-color: rgba(0, 128, 0, 0.384);
+      }
+      .absent{
+        color: #fff;
+
+        background-color: rgba(255, 0, 0, 0.496);
+      }
+
+     

@@ -1,0 +1,38 @@
+<section>
+  <div class="form-box">
+    <div class="form-value">
+      <form action="">
+        <h2>{{isStudent?'Student Login':'Teacher Login'}}</h2>
+        <ng-container *ngIf="isStudent; else teacher">
+          <div class="inputbox">
+            <!-- <ion-icon name="mail-outline"></ion-icon> -->
+            <input type="text" required />
+            <label for="">Roll Number</label>
+          </div>
+        </ng-container>
+        <ng-template #teacher>
+          <div class="inputbox">
+            <!-- <ion-icon name="mail-outline"></ion-icon> -->
+            <input type="email" required />
+            <label for="">Registered Email</label>
+          </div>
+        </ng-template>
+
+        <div class="inputbox">
+          <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+          <input type="password" required />
+          <label for="">Password</label>
+        </div>
+        <!-- <div class="forget">
+                <label><input type="checkbox">Remember Me</label>
+                <a href="#">Forgot password?</a>
+              </div> -->
+        <button>Log in</button>
+        <div class="register">
+          <p>not the {{isStudent?'student':'teacher'}}? <a (click)="changeLoginType()" >{{isStudent?'Teacher':'Student'}} Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+

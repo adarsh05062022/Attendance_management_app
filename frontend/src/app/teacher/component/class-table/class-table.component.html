@@ -1,0 +1,20 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Class Name</th>
+      <th scope="col">Section</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let class of classList; let i = index">
+      <tr >
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ class.className }}</td>
+        <td> <span class="badge badge-success rounded-pill d-inline">{{ class.section }}</span></td>
+        <td>{{ formatDate(class.date) }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
