@@ -1,17 +1,14 @@
 import Attendance from "../../models/Attendance.js";
 
-const CREATE_ATTENDENCE_RECORD = async (req, res) => {
+const CREATE_ATTENDANCE_RECORD = async (req, res) => {
   try {
-    const { classId, date, attendanceRecords } = req.body;
+    const { classId, attendanceRecords } = req.body;
 
-    // Parse the date string into a JavaScript Date object
-    const [day, month, year] = date.split("-");
-    const parsedDate = new Date(`${year}-${month}-${day}`);
+    
 
     // Create a new attendance record
     const newAttendance = new Attendance({
       classId,
-      date: parsedDate,
       attendanceRecords,
     });
 
@@ -24,11 +21,10 @@ const CREATE_ATTENDENCE_RECORD = async (req, res) => {
       message: "Attendance record created successfully.",
     });
   } catch (error) {
-    console.error("Error creating attendance record:", error);
-    res.status(500).json({ success: false, message: "Internal server error." });
+    res.json({ success: false, message: "Internal server error." });
   }
 };
-const UPDATE_ATTENDENCE_RECORD = async (req, res) => {
+const UPDATE_ATTENDANCE_RECORD = async (req, res) => {
   try {
     const { attendanceId } = req.params;
     const { classId, attendanceRecords } = req.body;
@@ -60,7 +56,7 @@ const UPDATE_ATTENDENCE_RECORD = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error." });
   }
 };
-const DELETE_ATTENDENCE_RECORD = async (req, res) => {
+const DELETE_ATTENDANCE_RECORD = async (req, res) => {
   try {
     const { attendanceId } = req.params;
 
@@ -79,7 +75,7 @@ const DELETE_ATTENDENCE_RECORD = async (req, res) => {
 };
 
 export {
-  CREATE_ATTENDENCE_RECORD,
-  UPDATE_ATTENDENCE_RECORD,
-  DELETE_ATTENDENCE_RECORD,
+  CREATE_ATTENDANCE_RECORD,
+  UPDATE_ATTENDANCE_RECORD,
+  DELETE_ATTENDANCE_RECORD,
 };

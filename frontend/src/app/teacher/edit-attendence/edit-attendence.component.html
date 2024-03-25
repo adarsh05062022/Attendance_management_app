@@ -2,9 +2,10 @@
   <mat-stepper
     class="example-stepper"
     [orientation]="(stepperOrientation | async)!"
+    [linear]="true"
   >
-    <mat-step [stepControl]="firstFormGroup" label="Select a class">
-      <app-class-table></app-class-table>
+    <mat-step  label="Select a class">
+      <app-class-table (classTablePageDetails)="onShowDetails($event)"  ></app-class-table>
     </mat-step>
     <mat-step label="Mark attendence">
       <app-attendence-table></app-attendence-table>

@@ -1,9 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface Class {
+  _id?:string;
   className: string;
   section: string;
-  date: Date;
+  classDate: Date;
 }
 
 @Injectable({
@@ -11,35 +14,27 @@ interface Class {
 })
 class ClassesService {
   // Create an array of objects with 5 entries
-  classes: Class[] = [
-    {
-      className: 'Mathematics',
-      section: '3CSA',
-      date: new Date('2024-03-18'),
-    },
-    {
-      className: 'Science',
-      section: '3CSA',
-      date: new Date('2024-03-19'),
-    },
-    {
-      className: 'English',
-      section: '3CSA',
-      date: new Date('2024-03-20'),
-    },
-    {
-      className: 'History',
-      section: '3CSA',
-      date: new Date('2024-03-21'),
-    },
-    {
-      className: 'Computer Science',
-      section: '3CSA  ',
-      date: new Date('2024-03-22'),
-    },
-  ];
+  
 
-  constructor() {}
+  baseUrl: string = 'http://localhost:3000/api';
+
+  constructor(private http: HttpClient) {}
+
+  addClass(classDetails: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/class/create-class', classDetails);
+  }
+
+  deleteClass(classID: string): Observable<any> {
+    return this.http.delete(this.baseUrl + '/class/' + classID);
+  }
+
+  getClassesByTeacher(teacherId: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/class/teacher/' + teacherId);
+  }
+
+  getTodayClassByStudent(studentId:string,date:any):Observable<any>{
+    return this.http.get(this.baseUrl+"/class/student/"+studentId+"/date/"+date)
+  }
 }
 
 export { ClassesService, Class };

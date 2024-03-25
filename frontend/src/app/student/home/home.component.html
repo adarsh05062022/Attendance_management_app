@@ -1,0 +1,29 @@
+<!-- attendance.component.html -->
+
+<div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title">Today's Attendance</h2>
+                <p class="card-text">Date: {{ todayAttendance.date }}</p>
+                <p class="card-text">Present: {{ todayAttendance.present }}</p>
+                <p class="card-text">Absent: {{ todayAttendance.absent }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title">Attendance within Date Range</h2>
+                <div *ngFor="let attendance of dateRangeAttendance" class="date-attendance">
+                  <p>Date: {{ attendance.date }}</p>
+                  <p>Present: {{ attendance.present }}</p>
+                  <p>Absent: {{ attendance.absent }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      

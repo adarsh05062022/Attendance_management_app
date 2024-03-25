@@ -6,8 +6,7 @@ import { RegisterStudentComponent } from './register-student/register-student.co
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
-  {path:'register-teacher',component:RegisterTeacherComponent},
-  {path:'register-student',component:RegisterStudentComponent},
+  
 ];
 
 @NgModule({

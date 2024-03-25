@@ -1,16 +1,28 @@
 import Class from "../../models/Class.js";
 
 const CREATE_CLASS = async (req, res) => {
+  console.log(req.body.classDate);
   try {
-    const { className, section, teacherId, studentIds } = req.body;
-    // Create a new class instance
-    const newClass = new Class({
-      className,
-      section,
-      teacherId,
-      studentIds,
-      // Add other relevant fields here if needed
-    });
+    const { className, section, teacherId, classDate } = req.body;
+     // Parse the date string into a JavaScript Date object
+     const parsedDate = new Date(classDate);
+
+     // Set the time to start of the day (00:00:00) in UTC timezone
+    //  parsedDate.setUTCHours(0, 0, 0, 0);
+
+    
+ 
+ // Convert the date to ISOString in UTC timezone
+//  const isoDate = parsedDate.toISOString();
+
+ // Create a new class instance
+ const newClass = new Class({
+   className,
+   section,
+   teacherId,
+   classDate: parsedDate // Store the modified date object
+   // Add other relevant fields here if needed
+ });
 
     // Save the new class to the database
     await newClass.save();
@@ -31,6 +43,9 @@ const UPDATE_CLASS = async (req, res) => {
   try {
     const { classId } = req.params;
     const updateData = req.body;
+
+  
+
 
     // Find the class by ID and update it in the database
     const updatedClass = await Class.findByIdAndUpdate(classId, updateData, {
@@ -56,14 +71,14 @@ const DELETE_CLASS = async (req, res) => {
   try {
     const { classId } = req.params;
 
+    console;
+
     // Find the class by ID and delete it from the database
     const deletedClass = await Class.findByIdAndDelete(classId);
 
     // If class is not found, return a 404 error
     if (!deletedClass) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Class not found." });
+      return res.json({ success: false, message: "Class not found." });
     }
 
     // Return success response

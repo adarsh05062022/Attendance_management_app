@@ -1,42 +1,52 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/cdk/stepper';
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Observable, map } from 'rxjs';
-import { AttendenceList, AttendenceService } from 'src/app/services/attendence.service';
-import { Section,  ConstantsService } from 'src/app/services/constants.service';
+import {
+  AttendanceList,
+  AttendanceService,
+} from 'src/app/services/attendance.service';
+import { Section, ConstantsService } from 'src/app/services/constants.service';
 import { AttendenceTableComponent } from '../component/attendence-table/attendence-table.component';
+import { ClassTableComponent } from '../component/class-table/class-table.component';
+import { Class, ClassesService } from 'src/app/services/classes.service';
+import { MatStepper } from '@angular/material/stepper';
+import { StudentService } from 'src/app/services/student.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-attendence',
   templateUrl: './edit-attendence.component.html',
-  styleUrls: ['./edit-attendence.component.scss']
+  styleUrls: ['./edit-attendence.component.scss'],
 })
 export class EditAttendenceComponent {
-
   @ViewChild(AttendenceTableComponent)
-  childComponent!: AttendenceTableComponent;
+  attendenceTable!: AttendenceTableComponent;
+
+  @ViewChild(ClassTableComponent)
+  classtableComponent!: ClassTableComponent;
+
+  @ViewChild(MatStepper) stepper!: MatStepper;
 
   sections!: Section[];
-  attendenceArray: AttendenceList[] = [];
-  selectedValue: any;
-  classDetails: any;
+  attendanceRecords: any = [];
+  studentList: AttendanceList[] = [];
   isFormEditable: boolean = false;
-  // classList: Class[] = [];
-
-  firstFormGroup = this._formBuilder.group({
-    className: ['', Validators.required],
-    section: ['', Validators.required],
-    classDate: ['', Validators.required],
-  });
+  classList: Class[] = [];
+  combinedList: AttendanceList[] = [];
+  classId!: string;
+  attendenceId!: string;
 
   stepperOrientation: Observable<StepperOrientation>;
 
   constructor(
-    private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
     private constantService: ConstantsService,
-    private attendenceService: AttendenceService
+    private attendenceService: AttendanceService,
+    private classServices: ClassesService,
+    private studentService: StudentService,
+    private toastr: ToastrService
   ) {
     // setting the view according to size
     this.stepperOrientation = breakpointObserver
@@ -46,24 +56,108 @@ export class EditAttendenceComponent {
     // setting the section from the services
 
     this.sections = constantService.sections;
+
+    // this.stepper.linear = true
   }
 
   ngOnInit() {
-    // this.attendenceArray = this.attendenceService.attendenceArray;
-    // console.log(this.attendenceArray)
+    this.getClassList();
   }
 
-  classeNextButtonClicked() {
-    this.classDetails = this.firstFormGroup.value;
-  }
+
+ 
+
   attendenceNextButtonClicked() {
-    // this.selectedValue = this.childComponent.getSelectedRows();
-
+    // this.selectedValue = this.tableComponent.getSelectedRows();
     // console.log(this.selectedValue);
   }
 
   onAttendenceSubmit() {
-    console.log(this.classDetails);
-    console.log(this.selectedValue);
+    let attendanceData = this.attendenceTable.getAttendanceRecords();
+
+    this.attendenceService
+      .updateAttendence(this.attendenceId, {
+        attendanceRecords: attendanceData,
+        classId: this.classId,
+      })
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.toastr.success('Attendance Updated Successful');
+        } else {
+          this.toastr.error('Failed to update Attendance');
+        }
+      });
+
+    console.log(attendanceData);
+  }
+
+  getClassList() {
+    let userInfo = localStorage.getItem('USER_DATA');
+    if (userInfo) {
+      let user = JSON.parse(userInfo).user;
+
+      let teacherId = user._id;
+
+      if (teacherId) {
+        this.classServices
+          .getClassesByTeacher(teacherId)
+          .subscribe((response) => {
+            this.classList = response.classes;
+            this.classtableComponent.classList = this.classList;
+          });
+      }
+    }
+  }
+
+  onShowDetails(data: any) {
+    this.stepper.next();
+
+    this.classId = data.classId;
+
+    this.attendenceService
+      .getParticularClassAttendence(data.classId)
+      .subscribe((response) => {
+        if (response.success) {
+          this.attendenceId = response.data._id;
+
+          this.attendanceRecords = response.data.attendanceRecords;
+
+          this.studentService
+            .getStudentBySection(data.section)
+            .subscribe((response) => {
+              this.studentList = response.data;
+
+              this.attendenceTable.updateStudentList(
+                this.combineStudentListWithAttendance()
+              );
+            });
+        }
+      });
+  }
+
+  combineStudentListWithAttendance() {
+    this.combinedList = [];
+    // Iterate over student list
+    for (const student of this.studentList) {
+      // Find corresponding attendance record
+      const attendanceRecordIndex = this.attendanceRecords.findIndex(
+        (record: any) => record.studentId === student._id
+      );
+
+      // If attendance record found, update its status
+      if (attendanceRecordIndex !== -1) {
+        this.combinedList.push({
+          _id: student._id,
+          name: student.name,
+          roll: student.roll,
+          isPresent:
+            this.attendanceRecords[attendanceRecordIndex].attendanceStatus ==
+            'present'
+              ? true
+              : false,
+        });
+      }
+    }
+    return this.combinedList;
   }
 }

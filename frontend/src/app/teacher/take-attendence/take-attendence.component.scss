@@ -6,9 +6,14 @@
     //     width: 100%;
     height: 100%;
     display: grid !important;
-    place-content: center;
+    place-content: normal !important;
+    
   }
+
+  
 }
+
+
 .createClass {
   padding: 10px;
 
@@ -21,11 +26,12 @@
     display: flex;
     justify-content: center;
   }
-
 }
 
-.attendenceButtons{
+.attendenceButtons {
   padding: 20px 50px;
   display: flex;
   justify-content: space-between;
 }
+
+

@@ -13,6 +13,20 @@ const GET_STUDENTS = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error." });
   }
 };
+const GET_STUDENTS_BY_SECTION = async (req, res) => {
+  try {
+    const section = req.query.section;
+    // Fetch all students from the database
+    const students = await Student.find({section:section});
+
+    // Return the list of students as JSON response
+    res.status(200).json({ success: true, data: students });
+  } catch (error) {
+    console.error("Error fetching students:", error);
+    // Return an error response if something goes wrong
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+};
 
 const GET_STUDENT = async (req, res) => {
   try {
@@ -37,4 +51,4 @@ const GET_STUDENT = async (req, res) => {
   }
 };
 
-export { GET_STUDENT, GET_STUDENTS };
+export { GET_STUDENT, GET_STUDENTS,GET_STUDENTS_BY_SECTION };

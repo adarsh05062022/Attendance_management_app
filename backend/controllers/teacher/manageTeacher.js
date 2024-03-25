@@ -7,14 +7,16 @@ const ADD_TEACHER = async (req, res) => {
     // Check if teacher already exists
     const existingTeacher = await Teacher.findOne({ email });
     if (existingTeacher) {
-      return res.status(400).json({
+      return res.json({
         success: false,
         message: "Teacher already exists with this email.",
       });
     }
+    
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
+    
     // Create new teacher
     const newTeacher = new Teacher({
       name,

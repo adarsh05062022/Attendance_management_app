@@ -8,7 +8,7 @@ const ADD_STUDENT = async (req, res) => {
     // Check if student already exists
     const existingStudent = await Student.findOne({ roll });
     if (existingStudent) {
-      return res.status(400).json({
+      return res.json({
         success: false,
         message: "Student already exists with this roll number.",
       });

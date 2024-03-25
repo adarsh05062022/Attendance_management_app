@@ -11,7 +11,7 @@ const attendanceRecordSchema = new mongoose.Schema({
 
 const attendanceSchema = new mongoose.Schema({
   classId: { type: mongoose.Schema.Types.ObjectId, ref: 'Class', required: true },
-  date: { type: Date, required: true },
+  // date: { type: Date, required: true },
   attendanceRecords: [attendanceRecordSchema],
 });
 

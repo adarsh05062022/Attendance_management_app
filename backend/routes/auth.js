@@ -14,24 +14,23 @@ router.post("/teacher/login", async (req, res) => {
       process.env.SECRET_KEY_FOR_TOKEN,
       { expiresIn: "1h" }
     );
-    res.status(200).json({ success: true, token: token, user: teacher });
+    res.status(200).json({ success: true, token: token, user: teacher,message:"Teacher login Successful" });
   } catch (error) {
-    console.error("Teacher login failed:", error.message);
-    res
-      .status(401)
+    // console.error("Teacher login failed:", error.message);
+    res      
       .json({ success: false, message: "Teacher authentication failed" });
   }
 });
 
 router.post("/student/login", async (req, res) => {
         try {
-                const { roll, password } = req.body;
-                const student = await authenticateStudent(roll, password);
+                const { rollNumber, password } = req.body;
+                const student = await authenticateStudent(rollNumber, password);
                 const token = jwt.sign({ userId: student._id }, process.env.SECRET_KEY_FOR_TOKEN, { expiresIn: '1h' });
-                res.status(200).json({ success: true, token:token,user:student });
+                res.status(200).json({ success: true, token:token,user:student ,message:"Student login Successful"});
               } catch (error) {
                 console.error('Student login failed:', error.message);
-                res.status(401).json({ success: false, message: 'Student authentication failed' });
+                res.json({ success: false, message: 'Student authentication failed' });
               }
 });
 

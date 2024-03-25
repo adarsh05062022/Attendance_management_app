@@ -2,9 +2,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  AttendenceService,
-  AttendenceList,
-} from 'src/app/services/attendence.service';
+  AttendanceService,
+  AttendanceList,
+} from 'src/app/services/attendance.service';
+
+interface AttendanceRecord {
+  studentId: string;
+  attendanceStatus: string;
+}
 
 @Component({
   selector: 'app-attendence-table',
@@ -12,33 +17,54 @@ import {
   styleUrls: ['./attendence-table.component.scss'],
 })
 export class AttendenceTableComponent {
-  studentList: AttendenceList[] = [];
-  allChecked:boolean = false
+  studentList: AttendanceList[] = [];
+  allChecked: boolean = false;
 
-  constructor(private attendenceService: AttendenceService) {
-    this.studentList = attendenceService.studentList;
+  attendanceRecords: AttendanceRecord[] = [];
+
+  constructor(private attendanceService: AttendanceService) {
+    this.studentList = attendanceService.studentList;
     // console.log(this.studentList)
   }
 
-
-  onAllSelectClicked(){
-    
-    if(!this.allChecked){
-      this.studentList.map((value:AttendenceList)=> value.isPresent = true)
-    }
-    else{
-      this.studentList.map((value:AttendenceList)=> value.isPresent = false)
-
-    }
-    this.allChecked = !this.allChecked
-
-  }
-  onCheckBoxClicked(student:AttendenceList){
-    student.isPresent = !student.isPresent
+  updateStudentList(newList: AttendanceList[]): void {
+    this.studentList = newList;
   }
 
-  submit(){
+  onAllSelectClicked() {
+    if (!this.allChecked) {
+      this.studentList.map((value: AttendanceList) => (value.isPresent = true));
+    } else {
+      this.studentList.map(
+        (value: AttendanceList) => (value.isPresent = false)
+      );
+    }
+    this.allChecked = !this.allChecked;
+  }
+  onCheckBoxClicked(student: AttendanceList) {
+    student.isPresent = !student.isPresent;
+  }
+
+  submit() {
     return this.studentList;
-    // console.log(this.studentList);    
+    // console.log(this.studentList);
+  }
+
+  getAttendanceRecords() {
+    this.attendanceRecords = []
+    // Ensure studentList is not empty before iterating
+    if (this.studentList && this.studentList.length > 0) {
+      this.studentList.forEach((student) => {
+        const studentId = student._id;
+        const attendanceStatus = student.isPresent ? 'present' : 'absent';
+  
+        this.attendanceRecords.push({ studentId, attendanceStatus });
+      });
+  
+    } else {
+      console.log('Student list is empty.'); // Log an error message if studentList is empty
+    }
+  
+    return this.attendanceRecords;
   }
 }

@@ -5,11 +5,6 @@ interface Section {
   viewValue: string;
 }
 
-// interface Class {
-//   className: string;
-//   forSection: string;
-//   date: Date;
-// }
 
 @Injectable({
   providedIn: 'root',
@@ -26,35 +21,6 @@ class ConstantsService {
     { value: '3CSB', viewValue: '3CSB' },
     { value: '3CSC', viewValue: '3CSC' },
   ];
-
-  // // Array of class objects
-  // classes: Class[] = [
-  //   {
-  //     className: 'Mathematics',
-  //     forSection: 'A',
-  //     date: new Date(2024, 2, 18), // March 18, 2024
-  //   },
-  //   {
-  //     className: 'Science',
-  //     forSection: 'B',
-  //     date: new Date(2024, 2, 19), // March 19, 2024
-  //   },
-  //   {
-  //     className: 'English',
-  //     forSection: 'C',
-  //     date: new Date(2024, 2, 20), // March 20, 2024
-  //   },
-  //   {
-  //     className: 'History',
-  //     forSection: 'D',
-  //     date: new Date(2024, 2, 21), // March 21, 2024
-  //   },
-  //   {
-  //     className: 'Computer Science',
-  //     forSection: 'E',
-  //     date: new Date(2024, 2, 22), // March 22, 2024
-  //   },
-  // ];
 
   constructor() {}
 }

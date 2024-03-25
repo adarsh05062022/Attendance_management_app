@@ -18,6 +18,14 @@ import {MatTableModule} from '@angular/material/table';
 import { AttendenceTableComponent } from './component/attendence-table/attendence-table.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ClassTableComponent } from './component/class-table/class-table.component';
+import {MatIconModule} from '@angular/material/icon';
+import { HomeCardsComponent } from './component/home-cards/home-cards.component';
+import { NgChartsModule  } from 'ng2-charts';
+import { HomeChartViewComponent } from './component/home-chart-view/home-chart-view.component';
+import { ClassListViewComponent } from './component/class-list-view/class-list-view.component';
+import { EditDetailsComponent } from './component/edit-details/edit-details.component';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 
 
 @NgModule({
@@ -27,6 +35,10 @@ import { ClassTableComponent } from './component/class-table/class-table.compone
     EditAttendenceComponent,
     AttendenceTableComponent,
     ClassTableComponent,
+    HomeCardsComponent,
+    HomeChartViewComponent,
+    ClassListViewComponent,
+    EditDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +54,11 @@ import { ClassTableComponent } from './component/class-table/class-table.compone
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule,
+    NgChartsModule,
+    MdbModalModule,
+    MdbFormsModule
   ],
   providers: [ ],
 })

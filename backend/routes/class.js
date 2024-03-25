@@ -28,6 +28,8 @@ router.get('/teacher/:teacherId/date/:date', GET_CLASS_BY_TEACHER_ON_PARTICULAR_
 
 
 // Route to get a class by Student id 
+
+// check if needed
 router.get('/student/:studentId', GET_CLASS_BY_STUDENT);
 
 

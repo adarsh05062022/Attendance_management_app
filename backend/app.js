@@ -6,6 +6,7 @@ import studentRoutes from "./routes/student.js";
 import classRoutes from "./routes/class.js";
 import attendanceRoute from "./routes/attendance.js";
 import authRoutes from "./routes/auth.js";
+import cors from "cors"
 
 // Load environment variables from .env file
 dotenv.config();
@@ -18,7 +19,9 @@ connectDB();
 
 // Middleware and route setup
 // Example middleware setup:
+app.use(cors())
 app.use(express.json());
+
 // app.use(express.urlencoded({ extended: false }));
 // app.use('/api/users', require('./routes/users'));
 

@@ -40,7 +40,9 @@ const GET_CLASS_BY_TEACHER = async (req, res) => {
     const { teacherId } = req.params;
 
     // Query classes based on the teacher's ID
-    const classes = await Class.find({ teacherId });
+    const classes = await Class.find({ teacherId }).sort({ _id  : -1 });
+
+    console.log(classes)
 
     // Return success response with the list of classes as JSON
     res.status(200).json({ success: true, classes });
@@ -101,8 +103,7 @@ const GET_CLASS_BY_STUDENT_ON_PARTICULAR_DATE = async (req, res) => {
     const { studentId, date } = req.params;
 
     // Parse the date string into a JavaScript Date object
-    const [day, month, year] = date.split('-');
-    const parsedDate = new Date(`${year}-${month}-${day}`);
+    const parsedDate = new Date(date);
 
     // Check if the parsed date is valid
     if (isNaN(parsedDate.getTime())) {
@@ -110,13 +111,15 @@ const GET_CLASS_BY_STUDENT_ON_PARTICULAR_DATE = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid date format." });
     }
 
-    // Query classes where the student attended on the particular date
+    // Set the time to start of the day (00:00:00)
+    parsedDate.setUTCHours(0, 0, 0, 0);
+
+    console.log(parsedDate)
+
+    // Find classes attended by the student on the particular date
     const classes = await Class.find({
-      studentIds: studentId,
-      date: {
-        $gte: new Date(parsedDate.setHours(0, 0, 0, 0)), // Start of the provided date
-        $lt: new Date(parsedDate.setHours(23, 59, 59, 999)) // End of the provided date
-      }
+      // studentIds: studentId,
+      date: parsedDate
     });
 
     // Return success response with the list of classes as JSON
@@ -127,6 +130,9 @@ const GET_CLASS_BY_STUDENT_ON_PARTICULAR_DATE = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error." });
   }
 };
+
+
+
 
 
 export { GET_CLASS, GET_CLASSES ,GET_CLASS_BY_TEACHER,GET_CLASS_BY_STUDENT,GET_CLASS_BY_STUDENT_ON_PARTICULAR_DATE,GET_CLASS_BY_TEACHER_ON_PARTICULAR_DATE};
