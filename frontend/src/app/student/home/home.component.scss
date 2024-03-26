@@ -1,16 +1,4 @@
-/* attendance.component.css */
-
-.attendance-container {
-        margin: 20px;
-      }
-      
-      .attendance-info, .date-range-attendance {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 20px;
-      }
-      
-      .date-attendance {
-        margin-bottom: 10px;
-      }
-      
+app-student-graph{
+        height: 100%;
+        display: flex;
+}

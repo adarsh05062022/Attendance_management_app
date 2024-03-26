@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -16,7 +17,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authServices: AuthenticationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
+
   ) {}
 
   ngOnInit(): void {
@@ -94,5 +97,8 @@ export class LoginComponent implements OnInit {
 
     const USER_DATA = { token, user };
     localStorage.setItem('USER_DATA', JSON.stringify(USER_DATA));
+
+   this.router.navigate(['/'])
+   window.location.reload();
   }
 }

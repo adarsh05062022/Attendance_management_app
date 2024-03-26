@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ConstantsService, Section } from 'src/app/services/constants.service';
+import { ConstantsService, Section, Subject } from 'src/app/services/constants.service';
 import {
   AttendanceService,
   AttendanceList,
@@ -24,6 +24,7 @@ export class TakeAttendenceComponent {
   tableComponent!: AttendenceTableComponent;
 
   sections!: Section[];
+  subjects!:Subject[];
   attendenceArray: AttendanceList[] = [];
   selectedValue: any;
   classDetails: any;
@@ -55,6 +56,8 @@ export class TakeAttendenceComponent {
     // setting the section from the services
 
     this.sections = constantService.sections;
+
+    this.subjects = constantService.subjectList
   }
 
   ngOnInit() {

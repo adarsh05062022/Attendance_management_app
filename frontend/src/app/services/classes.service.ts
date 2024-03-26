@@ -32,9 +32,7 @@ class ClassesService {
     return this.http.get(this.baseUrl + '/class/teacher/' + teacherId);
   }
 
-  getTodayClassByStudent(studentId:string,date:any):Observable<any>{
-    return this.http.get(this.baseUrl+"/class/student/"+studentId+"/date/"+date)
-  }
+  
 }
 
 export { ClassesService, Class };

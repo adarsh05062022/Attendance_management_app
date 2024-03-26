@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="Title text-center py-2">
+    <h2>Search Attendance</h2>
+    <div class="d-flex justify-content-around align-items-center">
+      <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" [(ngModel)]="startDate" />
+                <input matEndDate placeholder="End date" [(ngModel)]="endDate" />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <span *ngIf="formGroup.get('endDate')?.invalid && formGroup.get('endDate')?.dirty">
+        <span class="text-danger" *ngIf="formGroup.get('endDate')?.errors?.['required']">
+          End date is required.
+        </span>
+        <span class="text-danger" *ngIf="formGroup.get('endDate')?.errors?.['futureDate']">
+          End date cannot be in the future.
+        </span>
+      </span>
+      <span *ngIf="formGroup.hasError('dateRangeInvalid') && formGroup.dirty">
+        <span class="text-danger">Start date must be less than or equal to end date.</span>
+      </span>
+      <span>
+        <button class="btn btn-success" (click)="submit()">Search</button>
+
+      </span>
+    </div>
+  </div>
+  <div class="details mx-3 my-1">
+    <ng-container
+      *ngIf="attendenceList && attendenceList.length > 0; else elseCase"
+    >
+      <ng-container *ngFor="let data of attendenceList">
+        <div
+          class="card container class p-3 mb-2"
+          [ngClass]="
+            data.attendanceRecords[0].attendanceStatus === 'present'
+              ? 'present'
+              : 'absent'
+          "
+        >
+          <span class="className">{{ data.classId.className }}</span>
+
+          <span class="status">{{
+            data.attendanceRecords[0].attendanceStatus | uppercase
+          }}</span>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #elseCase>
+      <h2>No attendance Found</h2>
+    </ng-template>
+  </div>
+
+  <div class="summery py-3">
+    <div class="container">
+      <span class="title"> Total Classes : </span>
+      <span class="result">
+        {{ totalClasses }}
+      </span>
+    </div>
+    <div class="container">
+      <span class="title"> Present : </span>
+      <span class="result">
+        {{ present }}
+      </span>
+    </div>
+  </div>
+</div>

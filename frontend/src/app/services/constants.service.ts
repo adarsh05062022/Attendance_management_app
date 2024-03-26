@@ -5,6 +5,11 @@ interface Section {
   viewValue: string;
 }
 
+interface Subject {
+  value:string,
+  viewValue:string
+}
+
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +27,20 @@ class ConstantsService {
     { value: '3CSC', viewValue: '3CSC' },
   ];
 
+  subjectList:Subject[] = [
+    { value: 'Mathematics', viewValue: 'Mathematics' },
+    { value: 'Science', viewValue: 'Science' },
+    { value: 'English', viewValue: 'English' },
+    { value: 'History', viewValue: 'History' },
+    { value: 'Geography', viewValue: 'Geography' },
+    { value: 'Computer Science', viewValue: 'Computer Science' },
+    { value: 'Art', viewValue: 'Art' },
+    { value: 'Music', viewValue: 'Music' },
+    { value: 'Physical Education', viewValue: 'Physical Education' },
+    { value: 'Language', viewValue: 'Language' }
+  ]
+
   constructor() {}
 }
 
-export { ConstantsService, Section };
+export { ConstantsService, Section ,Subject};

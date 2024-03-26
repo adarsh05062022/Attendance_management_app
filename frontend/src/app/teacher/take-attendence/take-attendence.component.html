@@ -9,7 +9,7 @@
       <div class="container">
         <form [formGroup]="firstFormGroup" class="createClass">
           <div class="createClassInner">
-            <mat-form-field>
+            <!-- <mat-form-field>
               <mat-label>Class Name</mat-label>
               <input
                 matInput
@@ -17,6 +17,16 @@
                 formControlName="className"
                 required
               />
+            </mat-form-field> -->
+            <mat-form-field>
+              <mat-label>Select Subject</mat-label>
+              <mat-select formControlName="className">
+                <ng-container *ngFor="let subject of subjects">
+                  <mat-option [value]="subject.value"
+                    >{{ subject.viewValue }}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Select Section</mat-label>

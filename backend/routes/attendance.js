@@ -1,5 +1,5 @@
 import express from 'express';
-import { GET_ATTENDANCE_OF_PARTICULAR_CLASS, GET_ATTENDANCE_RECORDS_BY_STUDENT_OF_ALL_CLASSES,GET_ATTENDANCE_OF_PARTICULAR_DATE, GET_ATTENDANCE_RECORDS_BY_STUDENT_OF_PARTICULAR_DATE} from '../controllers/attendance/getAttendance.js';
+import { GET_ATTENDANCE_OF_PARTICULAR_CLASS, GET_ATTENDANCE_RECORDS_BY_STUDENT_OF_ALL_CLASSES,GET_ATTENDANCE_OF_PARTICULAR_DATE, GET_ATTENDANCE_RECORDS_BY_STUDENT_OF_PARTICULAR_DATE,GET_ATTENDANCE_BY_STUDENT_IN_DATE_RANGE} from '../controllers/attendance/getAttendance.js';
 
 import { CREATE_ATTENDANCE_RECORD, UPDATE_ATTENDANCE_RECORD, DELETE_ATTENDANCE_RECORD} from '../controllers/attendance/manageAttendance.js';
 
@@ -21,6 +21,9 @@ router.get('/student/:studentId/date/:date', GET_ATTENDANCE_RECORDS_BY_STUDENT_O
 
 // Get Attendance Records by Student of all classes
 router.get('/student/:studentId', GET_ATTENDANCE_RECORDS_BY_STUDENT_OF_ALL_CLASSES);
+
+// Get Attendance Records by Student in a date Range
+router.get('/student/:studentId/start/:startDate/end/:endDate', GET_ATTENDANCE_BY_STUDENT_IN_DATE_RANGE);
 
 // Delete Attendance Record
 router.delete('/:attendanceId', DELETE_ATTENDANCE_RECORD);

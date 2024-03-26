@@ -3,8 +3,14 @@
                 <mat-toolbar-row>
                         <span>Third Line</span>
                         <span class="example-spacer"></span>
+                        <ng-container *ngIf="isLoggedIn;else notLoggedIn" >
+                                <button mat-button  color="warn" routerLink="/auth" (click)="logout()">Logout</button>
+
+                        </ng-container>
+                        <ng-template #notLoggedIn>
                         <button mat-button  color="" routerLink="/auth">Login</button>
-                        <button mat-raised-button color="warn">Register<mat-icon>open_in_new</mat-icon></button>
+                           
+                        </ng-template>
                 </mat-toolbar-row>
         </mat-toolbar>
 </div>

@@ -50,6 +50,31 @@ class AttendanceService implements OnInit {
         formettedDate
     );
   }
+
+  getStudentDateRangeAttendance(
+    studentId: string,
+    startDate: Date,
+    endDate: Date
+  ): Observable<any> {
+    const formettedStartDate = `${startDate.getFullYear()}-${
+      startDate.getMonth() + 1
+    }-${startDate.getDate()}`;
+    const formettedEndDate = `${endDate.getFullYear()}-${
+      endDate.getMonth() + 1
+    }-${endDate.getDate()}`;
+
+   
+
+    return this.http.get(
+      this.baseUrl +
+        '/attendance/student/' +
+        studentId +
+        '/start/' +
+        formettedStartDate +
+        '/end/' +
+        formettedEndDate
+    );
+  }
 }
 
 export { AttendanceService, AttendanceList };

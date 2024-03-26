@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TakeAttendenceComponent } from './take-attendence/take-attendence.component';
 import { EditAttendenceComponent } from './edit-attendence/edit-attendence.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
