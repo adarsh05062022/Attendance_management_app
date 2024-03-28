@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Class } from 'src/app/services/classes.service';
-import { EditDetailsComponent } from 'src/app/teacher/component/edit-details/edit-details.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-home-cards',
@@ -9,7 +9,7 @@ import { EditDetailsComponent } from 'src/app/teacher/component/edit-details/edi
   styleUrls: ['./home-cards.component.scss']
 })
 export class HomeCardsComponent {
-  modalRef: MdbModalRef<EditDetailsComponent> | null = null;
+  modalRef: MdbModalRef<ChangePasswordComponent> | null = null;
 
   lastClass!: Class;
   userInfo!: any;
@@ -21,7 +21,7 @@ export class HomeCardsComponent {
   }
 
   openModal() {
-    this.modalRef = this.modalService.open(EditDetailsComponent, {
+    this.modalRef = this.modalService.open(ChangePasswordComponent, {
       modalClass: 'modal-dialog-centered',
     });
   }

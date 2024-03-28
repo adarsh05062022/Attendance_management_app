@@ -68,8 +68,7 @@ export class EditAttendenceComponent {
  
 
   attendenceNextButtonClicked() {
-    // this.selectedValue = this.tableComponent.getSelectedRows();
-    // console.log(this.selectedValue);
+  
   }
 
   onAttendenceSubmit() {
@@ -88,7 +87,6 @@ export class EditAttendenceComponent {
         }
       });
 
-    console.log(attendanceData);
   }
 
   getClassList() {

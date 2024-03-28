@@ -22,9 +22,11 @@ export class AppComponent {
         this.router.navigate(['/teacher']);
       } else if (userType === 'student') {
         this.router.navigate(['/student']);
-      } 
+      } else if (userType === 'admin') {
+        this.router.navigate(['/admin']);
+      }
 
-      return
+      return;
     }
     this.router.navigate(['/auth']);
     return;

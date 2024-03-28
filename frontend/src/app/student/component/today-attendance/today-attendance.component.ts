@@ -31,7 +31,6 @@ export class TodayAttendanceComponent {
           if (response.success) {
             this.attendenceList = response.data;
           }
-          console.log(response);
         });
     }
   }

@@ -44,6 +44,7 @@ export class StudentGraphComponent implements OnInit {
 
       const endDate = new Date(); // End date is the current date
 
+
       this.attendanceService
         .getStudentDateRangeAttendance(studentId, startDate, endDate)
         .subscribe((response: any) => {

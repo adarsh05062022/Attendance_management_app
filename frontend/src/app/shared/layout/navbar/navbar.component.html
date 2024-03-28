@@ -1,10 +1,10 @@
 <div class="navBar">
         <mat-toolbar >
                 <mat-toolbar-row>
-                        <span>Third Line</span>
+                        <span class="px-5">My Attendence app</span>
                         <span class="example-spacer"></span>
                         <ng-container *ngIf="isLoggedIn;else notLoggedIn" >
-                                <button mat-button  color="warn" routerLink="/auth" (click)="logout()">Logout</button>
+                                <button mat-button  color="warn" routerLink="/auth" class="mx-3" (click)="logout()">Logout</button>
 
                         </ng-container>
                         <ng-template #notLoggedIn>

@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentGraphComponent } from './component/student-graph/student-graph.component';
 import { NgChartsModule  } from 'ng2-charts';
 import { HomeCardsComponent } from './component/home-cards/home-cards.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -25,7 +27,9 @@ import { HomeCardsComponent } from './component/home-cards/home-cards.component'
     TodayAttendanceComponent,
     AttendanceInRangeComponent,
     StudentGraphComponent,
-    HomeCardsComponent
+    HomeCardsComponent,
+    ChangePasswordComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,

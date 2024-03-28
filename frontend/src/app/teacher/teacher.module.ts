@@ -26,6 +26,8 @@ import { ClassListViewComponent } from './component/class-list-view/class-list-v
 import { EditDetailsComponent } from './component/edit-details/edit-details.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { AddNotificationComponent } from './component/add-notification/add-notification.component';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
     HomeChartViewComponent,
     ClassListViewComponent,
     EditDetailsComponent,
+    NotificationsComponent,
+    AddNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +62,8 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
     MatIconModule,
     NgChartsModule,
     MdbModalModule,
-    MdbFormsModule
+    MdbFormsModule,
+    
   ],
   providers: [ ],
 })

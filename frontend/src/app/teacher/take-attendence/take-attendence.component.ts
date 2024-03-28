@@ -60,11 +60,7 @@ export class TakeAttendenceComponent {
     this.subjects = constantService.subjectList
   }
 
-  ngOnInit() {
-    // this.attendenceArray = this.attendenceService.attendenceArray;
-    // console.log(this.attendenceArray)
-  }
-
+ 
   classeNextButtonClicked() {
     this.classDetails = this.firstFormGroup.value;
 
@@ -74,12 +70,10 @@ export class TakeAttendenceComponent {
         this.tableComponent.updateStudentList(response.data);
       });
 
-    // console.log(this.classDetails);
   }
 
   attendenceNextButtonClicked() {
     this.selectedValue = this.tableComponent.submit();
-    // console.log(this.selectedValue);
   }
 
   onAttendenceSubmit() {
@@ -100,7 +94,6 @@ export class TakeAttendenceComponent {
           this.attendenceService
             .markAttendance(attendanceRecords, response.class._id)
             .subscribe((res: any) => {
-              console.log(res.success);
               if (res.success) {
                 this.toastr.success('Attendence Marked Successful');
               } else {

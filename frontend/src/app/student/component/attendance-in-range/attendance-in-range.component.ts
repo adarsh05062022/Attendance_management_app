@@ -2,17 +2,26 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AttendanceService } from 'src/app/services/attendance.service';
 
+interface SubjectAttendance {
+  classDate:string;
+  totalClasses: number;
+  presentClasses: number;
+  absentClasses: number;
+}
+
 @Component({
   selector: 'app-attendance-in-range',
   templateUrl: './attendance-in-range.component.html',
   styleUrls: ['./attendance-in-range.component.scss'],
 })
 export class AttendanceInRangeComponent {
-  attendenceList!: any;
+  attendanceList!: any;
   formGroup!: FormGroup;
+  newAttendanceList: { [key: string]: SubjectAttendance } = {}; 
 
   startDate!: Date;
   endDate!: Date;
+Object: any;
 
   constructor(
     private attendanceService: AttendanceService,
@@ -27,9 +36,12 @@ export class AttendanceInRangeComponent {
     );
   }
 
+
+  get AttendanceListKeys() {
+    return Object.keys(this.newAttendanceList);
+  }
+
   submit() {
-    console.log(this.startDate);
-    console.log(this.startDate);
 
     const startdate = new Date(this.startDate);
     const enddate = new Date(this.endDate);
@@ -76,29 +88,55 @@ export class AttendanceInRangeComponent {
         .getStudentDateRangeAttendance(studentId, startDate, endDate)
         .subscribe((response) => {
           if (response.success) {
-            this.attendenceList = response.data;
+            this.attendanceList = response.data;
+            this.processAttendanceData()
           }
-          console.log(response);
         });
     }
   }
 
   get totalClasses() {
-    if (this.attendenceList) {
-      return this.attendenceList.length;
+    if (this.attendanceList) {
+      return this.attendanceList.length;
     }
 
     return 0;
   }
 
   get present() {
-    if (this.attendenceList) {
-      return this.attendenceList.filter(
+    if (this.attendanceList) {
+      return this.attendanceList.filter(
         (value: any) =>
           value.attendanceRecords[0].attendanceStatus === 'present'
       ).length;
     }
 
     return 0;
+  }
+
+  processAttendanceData() {
+    const subjectAttendance: { [key: string]: SubjectAttendance } = {};
+
+    // Iterate over the attendance list and aggregate data for each subject
+    this.attendanceList.forEach((attendance: any) => {
+      const subjectName: string = attendance.classId.className;
+      if (!subjectAttendance[subjectName]) {
+        subjectAttendance[subjectName] = {
+          classDate:"",
+          totalClasses: 0,
+          presentClasses: 0,
+          absentClasses: 0,
+        };
+      }
+      subjectAttendance[subjectName].totalClasses++;
+      subjectAttendance[subjectName].classDate = attendance.classId.classDate
+      if (attendance.attendanceRecords[0].attendanceStatus === 'present') {
+        subjectAttendance[subjectName].presentClasses++;
+      } else {
+        subjectAttendance[subjectName].absentClasses++;
+      }
+    });
+
+    this.newAttendanceList = subjectAttendance;
   }
 }

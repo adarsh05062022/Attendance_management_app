@@ -5,6 +5,7 @@ import teacherRoutes from "./routes/teacher.js";
 import studentRoutes from "./routes/student.js";
 import classRoutes from "./routes/class.js";
 import attendanceRoute from "./routes/attendance.js";
+import notificationRoute from "./routes/notification.js";
 import authRoutes from "./routes/auth.js";
 import cors from "cors"
 
@@ -25,15 +26,14 @@ app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 // app.use('/api/users', require('./routes/users'));
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+
 
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/class", classRoutes);
 app.use("/api/attendance", attendanceRoute);
 app.use("/api/auth", authRoutes);
+app.use("/api/notification", notificationRoute);
 
 // Start server
 const PORT = process.env.PORT || 3000;

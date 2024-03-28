@@ -71,6 +71,7 @@ export class HomeComponent {
       let teacherId = JSON.parse(userInfo).user._id;
       let date = new Date();
 
+
       this.attendenceService.getParticularDateAttendence(teacherId, date).subscribe((response)=>{
         this.HomeChartRef.attendenceRecords = response;
         this.HomeChartRef.setChartData();

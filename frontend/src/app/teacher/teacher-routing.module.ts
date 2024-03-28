@@ -4,11 +4,13 @@ import { HomeComponent } from './home/home.component';
 import { TakeAttendenceComponent } from './take-attendence/take-attendence.component';
 import { EditAttendenceComponent } from './edit-attendence/edit-attendence.component';
 import { AuthGuard } from '../auth.guard';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'take-attendence',component:TakeAttendenceComponent},
   {path:'edit-attendence',component:EditAttendenceComponent},
+  {path:'notifications',component:NotificationsComponent},
 ];
 
 @NgModule({

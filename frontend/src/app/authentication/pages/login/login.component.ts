@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ConstantsService } from 'src/app/services/constants.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authServices: AuthenticationService,
     private toastr: ToastrService,
-    private router:Router
-
+    private router: Router,
+    private constantService: ConstantsService
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +99,16 @@ export class LoginComponent implements OnInit {
     const USER_DATA = { token, user };
     localStorage.setItem('USER_DATA', JSON.stringify(USER_DATA));
 
-   this.router.navigate(['/'])
-   window.location.reload();
+    this.router.navigate(['/']);
+    window.location.reload();
+  }
+
+  adminLogin() {
+    let a = prompt('Enter the Admin password');
+    if (a === this.constantService.adminPassword) {
+      let user = { user_type: 'admin' };
+      localStorage.setItem('USER_DATA', JSON.stringify({ user: user }));
+      this.router.navigate(['/admin']);
+    }
   }
 }

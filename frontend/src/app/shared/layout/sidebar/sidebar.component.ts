@@ -21,6 +21,8 @@ export class SidebarComponent {
         this.userType = 'teacher';
       } else if (userType === 'student') {
         this.userType = 'student';
+      } else if (userType === 'admin') {
+        this.userType = 'admin';
       }
 
       return;

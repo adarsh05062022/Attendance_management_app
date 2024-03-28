@@ -41,6 +41,7 @@ class AttendanceService implements OnInit {
     const formettedDate = `${date.getFullYear()}-${
       date.getMonth() + 1
     }-${date.getDate()}`;
+     
 
     return this.http.get(
       this.baseUrl +
@@ -63,7 +64,6 @@ class AttendanceService implements OnInit {
       endDate.getMonth() + 1
     }-${endDate.getDate()}`;
 
-   
 
     return this.http.get(
       this.baseUrl +

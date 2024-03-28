@@ -23,36 +23,18 @@ const GET_ATTENDANCE_OF_PARTICULAR_DATE = async (req, res) => {
     // Parse the date string to obtain a Date object
     const date = new Date(req.params.date);
 
-    // Set the start date to the beginning of the given date
-    const startDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    );
-
-    // Set the end date to the end of the given date
-    const endDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() + 1
-    );
 
     // Find classes on the given date
+
+
     const classes = await Class.find({
       teacherId: teacherId,
-      classDate: {
-        $gte: startDate,
-        $lt: endDate,
-      },
+      classDate: date,
     });
-
-    console.log(classes);
 
     // If no classes found for the given date, return an empty array
     if (!classes || classes.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No classes found for the given date" });
+      return res.json({ message: "No classes found for the given date" });
     }
 
     // Extract classIds from the classes found
@@ -125,26 +107,26 @@ const GET_ATTENDANCE_BY_STUDENT_IN_DATE_RANGE = async (req, res) => {
 
     // Validate input
     if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
-      return res.json({success:false, message: "Invalid studentId" });
+      return res.json({ success: false, message: "Invalid studentId" });
     }
 
     if (!startDate || !endDate) {
       return res
         .status(400)
-        .json({ success:false, message: "Both startDate and endDate are required" });
+        .json({
+          success: false,
+          message: "Both startDate and endDate are required",
+        });
     }
 
     // Parse dates
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-  
-
     // Find classes within the date range
     const classList = await Class.find({
       classDate: { $gte: start, $lte: end },
     });
-
 
     // Map attendance for each class
     const attendanceList = [];
@@ -167,10 +149,10 @@ const GET_ATTENDANCE_BY_STUDENT_IN_DATE_RANGE = async (req, res) => {
       }
     }
 
-    res.json({success:true, data:attendanceList});
+    res.json({ success: true, data: attendanceList });
   } catch (error) {
     // console.error("Error fetching attendance:", error);
-    res.json({ success:false, message: "Server error" });
+    res.json({ success: false, message: "Server error" });
   }
 };
 

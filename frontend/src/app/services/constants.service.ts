@@ -11,6 +11,8 @@ interface Subject {
 }
 
 
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,6 +41,8 @@ class ConstantsService {
     { value: 'Physical Education', viewValue: 'Physical Education' },
     { value: 'Language', viewValue: 'Language' }
   ]
+
+  adminPassword :string ="admin123123"
 
   constructor() {}
 }
