@@ -84,7 +84,6 @@ const DELETE_TEACHER = async (req, res) => {
     // If teacher is not found, return a 404 error
     if (!deletedTeacher) {
       return res
-        .status(404)
         .json({ success: false, message: "Teacher not found." });
     }
 

@@ -21,4 +21,12 @@ export class StudentService {
   updateStudent(student: any, studentId: string): Observable<any> {
     return this.http.put(this.baseUrl + '/student/' + studentId, student);
   }
+
+  getStudents():Observable<any>{
+    return this.http.get(this.baseUrl+"/student")
+   }
+
+   deleteStudent(studentId:string):Observable<any>{
+     return this.http.delete(this.baseUrl+"/student/"+studentId)
+   }
 }

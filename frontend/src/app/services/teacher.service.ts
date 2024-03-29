@@ -19,5 +19,13 @@ export class TeacherService {
     return this.http.put(this.baseUrl+"/teacher/"+teacherId,teacher)
    }
 
+   getTeachers():Observable<any>{
+    return this.http.get(this.baseUrl+"/teacher")
+   }
+
+   deleteTeacher(techerId:string):Observable<any>{
+     return this.http.delete(this.baseUrl+"/teacher/"+techerId)
+   }
+
   
 }

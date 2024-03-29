@@ -91,12 +91,15 @@ export class LoginComponent implements OnInit {
 
   storeLogin(response: any, isStudent: boolean): void {
     let token = response.token;
+
+    this.setCokkies(response.token);
+
     let user = response.user;
     let user_type = isStudent ? 'student' : 'teacher';
 
     user = { user_type: user_type, ...user };
 
-    const USER_DATA = { token, user };
+    const USER_DATA = {  user };
     localStorage.setItem('USER_DATA', JSON.stringify(USER_DATA));
 
     this.router.navigate(['/']);
@@ -110,5 +113,16 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('USER_DATA', JSON.stringify({ user: user }));
       this.router.navigate(['/admin']);
     }
+  }
+
+  setCokkies(token: string) {
+    const tokenName = 'auth_token';
+    const tokenValue = token;
+    const days = 1; // Expires in 1 day
+
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    const expires = 'expires=' + date.toUTCString();
+    document.cookie = tokenName + '=' + tokenValue + ';' + expires + ';path=/';
   }
 }

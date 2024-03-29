@@ -14,6 +14,14 @@ export class AppComponent {
   }
 
   checkUserLogin() {
+    const tokenName = 'auth_token';
+    const tokenExists = document.cookie.includes(`${tokenName}=`);
+
+    if (!tokenExists) {
+      localStorage.removeItem("USER_DATA")
+      
+    }
+
     let userInfo = localStorage.getItem('USER_DATA');
 
     if (userInfo) {

@@ -21,26 +21,28 @@ export class HomeChartViewComponent {
     this.lineChartData = {
       labels: [],
       datasets: [
-        { data: [], label: '',borderColor: 'yellowgreen', },
-        { data: [], label: '',borderColor: 'red', },
+        { data: [], label: '', borderColor: 'yellowgreen' },
+        { data: [], label: '', borderColor: 'red' },
       ],
     };
 
-    this.attendenceRecords.forEach((classes: any) => {
-      this.lineChartData.labels?.push(classes.classId.section);
+    try {
+      this.attendenceRecords.forEach((classes: any) => {
+        this.lineChartData.labels?.push(classes.classId.section);
 
-      this.lineChartData.datasets[0].data.push(
-        classes.attendanceRecords.filter(
-          (attendence: any) => attendence.attendanceStatus === 'present'
-        ).length
-      );
-      this.lineChartData.datasets[0].label = 'Present';
-      this.lineChartData.datasets[1].data.push(
-        classes.attendanceRecords.filter(
-          (attendence: any) => attendence.attendanceStatus === 'absent'
-        ).length
-      );
-      this.lineChartData.datasets[1].label = 'Absent';
-    });
+        this.lineChartData.datasets[0].data.push(
+          classes.attendanceRecords.filter(
+            (attendence: any) => attendence.attendanceStatus === 'present'
+          ).length
+        );
+        this.lineChartData.datasets[0].label = 'Present';
+        this.lineChartData.datasets[1].data.push(
+          classes.attendanceRecords.filter(
+            (attendence: any) => attendence.attendanceStatus === 'absent'
+          ).length
+        );
+        this.lineChartData.datasets[1].label = 'Absent';
+      });
+    } catch (error) {}
   }
 }

@@ -6,19 +6,25 @@ import { HomeComponent } from './home/home.component';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TeachersComponent } from './teachers/teachers.component';
+import { StudentsComponent } from './students/students.component';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     RegisterTeacherComponent,
-    RegisterStudentComponent
+    RegisterStudentComponent,
+    TeachersComponent,
+    StudentsComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MdbFormsModule
   ]
 })
 export class AdminModule { }
