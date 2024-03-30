@@ -8,20 +8,30 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import {  MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SectionsComponent } from './sections/sections.component';
+import { AddSectionComponent } from './components/add-section/add-section.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SubjectsComponent } from './subjects/subjects.component';
+import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 
 
 @NgModule({
   declarations: [
     LayoutComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    SectionsComponent,
+    AddSectionComponent,
+    SubjectsComponent,
+    AddSubjectComponent
   ],
   imports: [
     CommonModule,
     SharedRoutingModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule 
+    MatButtonModule ,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

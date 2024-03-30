@@ -21,14 +21,15 @@ export class RegisterStudentComponent {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       roll: ['', Validators.required],
-      dob: ['', Validators.required], // Added Date of Birth field
       password: ['', Validators.required],
       section: ['', Validators.required] // Added Section selection field
     });
 
 
     // setting the sections
-    this.sections = this.constantService.sections;
+    // this.sections = this.constantService.sections;
+
+    this.fetchSections()
   }
 
   onSubmit() {
@@ -46,5 +47,15 @@ export class RegisterStudentComponent {
       }
       
     })
+  }
+
+  fetchSections() {
+    this.constantService.getSections().subscribe((data: any) => {
+      // Assuming response is an array of sections with `dept` and `shift` fields
+      this.sections = data.section.map((section: any) => ({
+        value: section.dept + '_' + section.shift,
+        viewValue: section.dept + ' ' + section.shift,
+      }));
+    });
   }
 }

@@ -1,7 +1,6 @@
 import Class from "../../models/Class.js";
 
 const CREATE_CLASS = async (req, res) => {
-  console.log(req.body.classDate);
   try {
     const { className, section, teacherId, classDate } = req.body;
      // Parse the date string into a JavaScript Date object

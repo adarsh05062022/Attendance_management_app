@@ -31,7 +31,6 @@ const ADD_TEACHER = async (req, res) => {
       .status(201)
       .json({ success: true, message: "Teacher registered successfully." });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, message: "Internal server error." });
   }
 };

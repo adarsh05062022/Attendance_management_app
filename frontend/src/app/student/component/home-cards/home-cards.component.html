@@ -4,17 +4,18 @@
         
         <div class="c-dashboardInfo col-lg-6">
           <div class="wrap">
-            <h4
+            
+            <ng-container *ngIf="userInfo else noPersonalRecord">
+              <h4
               class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title"
             >
-              Personal Info
+              {{userInfo.roll}}
             </h4>
-            <ng-container *ngIf="userInfo else noPersonalRecord">
               <span class="hind-font caption-12 c-dashboardInfo__count">{{
                 userInfo.name
               }}</span>
               <span class="badge badge-success rounded-pill d-inline">{{
-                userInfo.roll
+                userInfo.section
               }}</span>
               
             </ng-container>

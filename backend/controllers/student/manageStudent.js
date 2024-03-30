@@ -3,7 +3,7 @@ import Student from "../../models/Student.js";
 
 const ADD_STUDENT = async (req, res) => {
   try {
-    const { name, roll, password, dob, section } = req.body;
+    const { name, roll, password,  section } = req.body;
 
     // Check if student already exists
     const existingStudent = await Student.findOne({ roll });
@@ -22,7 +22,7 @@ const ADD_STUDENT = async (req, res) => {
       name,
       roll,
       password: hashedPassword,
-      dob,
+      
       section,
     });
 

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.studentLoginForm = this.formBuilder.group({
       rollNumber: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(5)]),
+        Validators.compose([Validators.required, Validators.minLength(1)]),
       ],
       password: ['', Validators.required],
     });

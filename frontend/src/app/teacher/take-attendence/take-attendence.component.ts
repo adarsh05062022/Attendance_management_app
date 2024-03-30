@@ -3,7 +3,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ConstantsService, Section, Subject } from 'src/app/services/constants.service';
+import {
+  ConstantsService,
+  Section,
+  Subject,
+} from 'src/app/services/constants.service';
 import {
   AttendanceService,
   AttendanceList,
@@ -24,7 +28,7 @@ export class TakeAttendenceComponent {
   tableComponent!: AttendenceTableComponent;
 
   sections!: Section[];
-  subjects!:Subject[];
+  subjects!: Subject[];
   attendenceArray: AttendanceList[] = [];
   selectedValue: any;
   classDetails: any;
@@ -33,7 +37,7 @@ export class TakeAttendenceComponent {
   firstFormGroup = this._formBuilder.group({
     className: ['', Validators.required],
     section: ['', Validators.required],
-    classDate: ['', [Validators.required,this.dateNotInFutureValidator()]],
+    classDate: ['', [Validators.required, this.dateNotInFutureValidator()]],
   });
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -55,12 +59,33 @@ export class TakeAttendenceComponent {
 
     // setting the section from the services
 
-    this.sections = constantService.sections;
+    this.fetchSections();
+    // this.sections = constantService.fetchSections();
 
-    this.subjects = constantService.subjectList
+    // this.subjects = constantService.subjectList;
+
+    this.fetchSubjects()
   }
 
- 
+  fetchSections() {
+    this.constantService.getSections().subscribe((data: any) => {
+      // Assuming response is an array of sections with `dept` and `shift` fields
+      this.sections = data.section.map((section: any) => ({
+        value: section.dept + '_' + section.shift,
+        viewValue: section.dept + ' ' + section.shift,
+      }));
+    });
+  }
+  fetchSubjects() {
+    this.constantService.getSubjects().subscribe((data: any) => {
+      // Assuming response is an array of sections with `dept` and `shift` fields
+      this.subjects = data.subjects.map((subject: any) => ({
+        value: subject.name ,
+        viewValue:  subject.name,
+      }));
+    });
+  }
+
   classeNextButtonClicked() {
     this.classDetails = this.firstFormGroup.value;
 
@@ -69,7 +94,6 @@ export class TakeAttendenceComponent {
       .subscribe((response) => {
         this.tableComponent.updateStudentList(response.data);
       });
-
   }
 
   attendenceNextButtonClicked() {
@@ -111,11 +135,8 @@ export class TakeAttendenceComponent {
     }
   }
 
-
-
-
   dateNotInFutureValidator() {
-    return (control:any) => {
+    return (control: any) => {
       const selectedDate = new Date(control.value);
       const currentDate = new Date();
       if (selectedDate > currentDate) {

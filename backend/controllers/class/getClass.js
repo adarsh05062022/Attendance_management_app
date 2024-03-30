@@ -42,7 +42,6 @@ const GET_CLASS_BY_TEACHER = async (req, res) => {
     // Query classes based on the teacher's ID
     const classes = await Class.find({ teacherId }).sort({ _id  : -1 });
 
-    console.log(classes)
 
     // Return success response with the list of classes as JSON
     res.status(200).json({ success: true, classes });
@@ -114,7 +113,6 @@ const GET_CLASS_BY_STUDENT_ON_PARTICULAR_DATE = async (req, res) => {
     // Set the time to start of the day (00:00:00)
     parsedDate.setUTCHours(0, 0, 0, 0);
 
-    console.log(parsedDate)
 
     // Find classes attended by the student on the particular date
     const classes = await Class.find({

@@ -21,7 +21,8 @@ export class AddNotificationComponent {
     private notificationService: NotificationsService,
     private toastr: ToastrService
   ) {
-    this.sections = constantService.sections;
+    // this.sections = constantService.sections;
+    this.fetchSections();      
   }
 
   ngOnInit(): void {
@@ -68,5 +69,15 @@ export class AddNotificationComponent {
       // You can mark the form controls as touched to trigger error messages
       this.notificationForm.markAllAsTouched();
     }
+  }
+
+  fetchSections() {
+    this.constantService.getSections().subscribe((data: any) => {
+      // Assuming response is an array of sections with `dept` and `shift` fields
+      this.sections = data.section.map((section: any) => ({
+        value: section.dept + '_' + section.shift,
+        viewValue: section.dept + ' ' + section.shift,
+      }));
+    });
   }
 }

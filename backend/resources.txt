@@ -1,7 +1,0 @@
-express
-nodemon
-mongodb
-mongoose
-jsonwebtoken
-dotenv
-bcrypt

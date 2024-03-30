@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 interface Section {
   value: string;
@@ -6,45 +8,46 @@ interface Section {
 }
 
 interface Subject {
-  value:string,
-  viewValue:string
+  value: string;
+  viewValue: string;
 }
-
-
-
 
 @Injectable({
   providedIn: 'root',
 })
 class ConstantsService {
-  sections: Section[] = [
-    { value: '1CSA', viewValue: '1CSA' },
-    { value: '1CSB', viewValue: '1CSB' },
-    { value: '1CSC', viewValue: '1CSC' },
-    { value: '2CSA', viewValue: '2CSA' },
-    { value: '2CSB', viewValue: '2CSB' },
-    { value: '2CSC', viewValue: '2CSC' },
-    { value: '3CSA', viewValue: '3CSA' },
-    { value: '3CSB', viewValue: '3CSB' },
-    { value: '3CSC', viewValue: '3CSC' },
-  ];
+  sections: Section[] = []; // Initialize as an empty array
 
-  subjectList:Subject[] = [
-    { value: 'Mathematics', viewValue: 'Mathematics' },
-    { value: 'Science', viewValue: 'Science' },
-    { value: 'English', viewValue: 'English' },
-    { value: 'History', viewValue: 'History' },
-    { value: 'Geography', viewValue: 'Geography' },
-    { value: 'Computer Science', viewValue: 'Computer Science' },
-    { value: 'Art', viewValue: 'Art' },
-    { value: 'Music', viewValue: 'Music' },
-    { value: 'Physical Education', viewValue: 'Physical Education' },
-    { value: 'Language', viewValue: 'Language' }
-  ]
+  subjectList: Subject[] = [];
 
-  adminPassword :string ="admin123123"
+  baseUrl = 'http://localhost:3000/api';
+  adminPassword: string = 'admin123123';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  addSections(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/section', data);
+  }
+
+  getSections(): Observable<any> {
+    return this.http.get(this.baseUrl + '/section');
+  }
+
+  deleteSection(id: string): Observable<any> {
+    return this.http.delete(this.baseUrl + '/section/' + id);
+  }
+
+  addSubjects(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/subject', data);
+  }
+
+  getSubjects(): Observable<any> {
+    return this.http.get(this.baseUrl + '/subject');
+  }
+
+  deleteSubject(id: string): Observable<any> {
+    return this.http.delete(this.baseUrl + '/subject/' + id);
+  }
 }
 
-export { ConstantsService, Section ,Subject};
+export { ConstantsService, Section, Subject };
