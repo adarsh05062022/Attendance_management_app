@@ -7,52 +7,59 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+  styleUrls: ['./notifications.component.scss'],
 })
 export class NotificationsComponent {
-  notification:{
-    _id:string,
-    section:string,
-    message:string,
-    createdAt:string
-  }[]=[];
+  notification: {
+    _id: string;
+    section: string;
+    message: string;
+    createdAt: string;
+  }[] = [];
 
   modalRef: MdbModalRef<AddNotificationComponent> | null = null;
 
-  constructor(private modalService: MdbModalService,private notificationService:NotificationsService,private toastr:ToastrService) {
-    this.makeRequest()
+  constructor(
+    private modalService: MdbModalService,
+    private notificationService: NotificationsService,
+    private toastr: ToastrService
+  ) {
+    this.makeRequest();
   }
 
   openModal() {
-    this.modalRef = this.modalService.open(AddNotificationComponent)
+    this.modalRef = this.modalService.open(AddNotificationComponent);
+    this.modalRef.onClose.subscribe((canUpdate: any) => {
+      if(canUpdate){
+        this.makeRequest()
+      }
+    });
   }
 
-  makeRequest(){
+  makeRequest() {
     let userInfo = localStorage.getItem('USER_DATA');
 
-      if (userInfo) {
-        let teacherId = JSON.parse(userInfo).user._id;
-       
+    if (userInfo) {
+      let teacherId = JSON.parse(userInfo).user._id;
 
-        this.notificationService
-          .getNotifications(teacherId)
-          .subscribe((response: any) => {
-            if (response.success) {
-              this.notification = response.data.reverse();
-              return;
-            }
-          });
-      }
-  }
-
-  deleteNotification(id:string){
-         this.notificationService.deleteNotification(id).subscribe((response:any)=>{
-          
-          if(response.success){
-            this.toastr.success("Notification deleted sucessfully")
+      this.notificationService
+        .getNotifications(teacherId)
+        .subscribe((response: any) => {
+          if (response.success) {
+            this.notification = response.data.reverse();
+            return;
           }
-         })
+        });
+    }
   }
 
-
+  deleteNotification(id: string) {
+    this.notificationService
+      .deleteNotification(id)
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.toastr.success('Notification deleted sucessfully');
+        }
+      });
+  }
 }

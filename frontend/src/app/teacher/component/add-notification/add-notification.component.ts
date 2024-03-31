@@ -58,7 +58,7 @@ export class AddNotificationComponent {
           .subscribe((response: any) => {
             if (response.success) {
               this.toastr.success('Messege sent successfully');
-              this.modalRef.close();
+              this.modalRef.close(true);
               return;
             }
             this.toastr.error('failed to send notification');
