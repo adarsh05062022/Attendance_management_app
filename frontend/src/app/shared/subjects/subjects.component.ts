@@ -35,7 +35,6 @@ export class SubjectsComponent {
   makeRequest(){
    this.constantServices.getSubjects().subscribe((response:any)=>{
     if(response.success){
-      console.log(response)
       this.subjects = response.subjects;
     }
    })

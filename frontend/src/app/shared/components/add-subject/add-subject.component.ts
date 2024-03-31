@@ -37,7 +37,6 @@ export class AddSubjectComponent {
 
 
   onSubmit() {
-    console.log(this.subjectForm.value)
     this.constantService.addSubjects(this.subjectForm.value).subscribe((response:any)=>{
         if(response.success){
           this.toastr.success(response.message)
