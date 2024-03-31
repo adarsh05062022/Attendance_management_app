@@ -41,6 +41,7 @@ export class AddSubjectComponent {
     this.constantService.addSubjects(this.subjectForm.value).subscribe((response:any)=>{
         if(response.success){
           this.toastr.success(response.message)
+          this.modalRef.close(true)
           return
         }
         this.toastr.error(response.message)

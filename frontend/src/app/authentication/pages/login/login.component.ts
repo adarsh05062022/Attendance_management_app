@@ -111,6 +111,7 @@ export class LoginComponent implements OnInit {
     if (a === this.constantService.adminPassword) {
       let user = { user_type: 'admin' };
       localStorage.setItem('USER_DATA', JSON.stringify({ user: user }));
+      this.setCokkies("d28itwd92ohdyg128i7dg2ibkw")
       this.router.navigate(['/admin']);
     }
   }

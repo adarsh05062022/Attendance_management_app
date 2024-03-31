@@ -25,6 +25,11 @@ export class SubjectsComponent {
 
   openModal() {
     this.modalRef = this.modalService.open(AddSubjectComponent)
+    this.modalRef.onClose.subscribe((canUpdate: any) => {
+      if(canUpdate){
+        this.makeRequest()
+      }
+    });
   }
 
   makeRequest(){
@@ -40,6 +45,7 @@ export class SubjectsComponent {
          this.constantServices.deleteSubject(id).subscribe((response:any)=>{
           
           if(response.success){
+            this.makeRequest()
             this.toastr.success("Subject deleted sucessfully")
           }
          })
