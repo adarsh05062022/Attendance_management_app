@@ -8,6 +8,7 @@ interface Student {
   roll: string;
   section:string;
   dob:string;
+  createdAt:Date;
 }
 @Component({
   selector: 'app-students',
@@ -25,7 +26,9 @@ export class StudentsComponent {
   ) {
     studentService.getStudents().subscribe((response: any) => {
       if (response.success) {
-        this.students = response.data;
+        this.students =  response.data.sort((a: Student, b: Student) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
 
       }
     });
@@ -35,6 +38,9 @@ export class StudentsComponent {
     this.studentService.deleteStudent(studentId).subscribe((response: any) => {
       if (response.success) {
         this.toastr.success(response.message);
+        this.students = this.students.filter(t => t._id !== studentId).sort((a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
       } else {
         this.toastr.error(response.message);
       }

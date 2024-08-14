@@ -1,4 +1,5 @@
-<div class="search-container">
+<div class="search-container d-flex justify-content-between">
+  <span><h2>Total Students : {{students.length}}</h2></span>
   <mdb-form-control>
     <input
       mdbInput
@@ -19,6 +20,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Roll</th>
                     <th scope="col">Section</th>
+                    <th scope="col">Created At</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -29,6 +31,7 @@
                       <td>{{ student.name }}</td>
                       <td>{{ student.roll }}</td>
                       <td>{{ student.section }}</td>
+                      <td>{{ student.createdAt  | date:'dd-MM-yyyy' }}</td>
                       <td>
                         <button
                           class="btn btn-danger"

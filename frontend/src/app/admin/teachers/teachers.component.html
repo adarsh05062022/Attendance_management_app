@@ -1,9 +1,11 @@
+<div><h2>Total Teachers : {{teachers.length}}</h2></div>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
+      <th scope="col">Created At</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -13,6 +15,7 @@
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ teacher.name }}</td>
         <td>{{ teacher.email }}</td>
+        <td>{{ teacher.createdAt | date:'dd-MM-yyyy' }}</td>
         <td>
           <button
             class="btn btn-danger"
