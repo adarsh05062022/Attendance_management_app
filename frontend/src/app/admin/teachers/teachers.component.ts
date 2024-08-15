@@ -39,4 +39,15 @@ export class TeachersComponent {
       }
     });
   }
+
+  deleteAllTeacher() {
+    this.teacherService.deleteAllTeacher().subscribe((response: any) => {
+      if (response.success) {
+        this.toastr.success(response.message);
+        this.teachers = [];
+      } else {
+        this.toastr.error(response.message);
+      }
+    });
+  }
 }

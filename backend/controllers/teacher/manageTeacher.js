@@ -97,4 +97,27 @@ const DELETE_TEACHER = async (req, res) => {
   }
 };
 
-export { ADD_TEACHER, UPDATE_TEACHER, DELETE_TEACHER };
+const DELETE_ALL_TEACHERS = async (req, res) => {
+  try {
+    // Delete all entries in the Teacher collection
+    const result = await Teacher.deleteMany({});
+
+    // Check if any documents were deleted
+    if (result.deletedCount === 0) {
+      return res
+        .json({ success: false, message: "No teachers found to delete." });
+    }
+
+    // Return success message
+    res
+      .status(200)
+      .json({ success: true, message: "All teachers deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting all teachers:", error);
+    // Return an error response if something goes wrong
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+};
+
+
+export { ADD_TEACHER, UPDATE_TEACHER, DELETE_TEACHER ,DELETE_ALL_TEACHERS};

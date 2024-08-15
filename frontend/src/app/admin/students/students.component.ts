@@ -34,7 +34,7 @@ export class StudentsComponent {
     });
   }
 
-  deleteTeacher(studentId: string) {
+  deleteStudent(studentId: string) {
     this.studentService.deleteStudent(studentId).subscribe((response: any) => {
       if (response.success) {
         this.toastr.success(response.message);
@@ -46,6 +46,18 @@ export class StudentsComponent {
       }
     });
 }
+  deleteAllStudent() {
+    this.studentService.deleteAllStudent().subscribe((response: any) => {
+      if (response.success) {
+        this.toastr.success(response.message);
+        this.students =[]
+      } else {
+        this.toastr.error(response.message);
+      }
+    });
+}
+
+
 
 // Function to filter classList based on searchTerm
 filterStudentList(): any[] {

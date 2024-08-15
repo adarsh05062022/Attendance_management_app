@@ -29,4 +29,7 @@ export class StudentService {
    deleteStudent(studentId:string):Observable<any>{
      return this.http.delete(this.baseUrl+"/student/"+studentId)
    }
+   deleteAllStudent():Observable<any>{
+     return this.http.delete(this.baseUrl+"/student/all")
+   }
 }

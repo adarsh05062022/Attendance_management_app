@@ -21,7 +21,14 @@
                     <th scope="col">Roll</th>
                     <th scope="col">Section</th>
                     <th scope="col">Created At</th>
-                    <th scope="col"></th>
+                    <th scope="col"><button
+                      class="btn btn-warning"
+                      mdbRipple
+                      (click)="deleteAllStudent()"
+                      
+                    >
+                      Delete All
+                    </button></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -36,7 +43,7 @@
                         <button
                           class="btn btn-danger"
                           mdbRipple
-                          (click)="deleteTeacher(student._id)"
+                          (click)="deleteStudent(student._id)"
                         >
                           Delete
                         </button>

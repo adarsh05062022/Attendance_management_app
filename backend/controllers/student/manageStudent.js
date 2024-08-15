@@ -105,4 +105,27 @@ const DELETE_STUDENT = async (req, res) => {
   }
 };
 
-export { ADD_STUDENT, UPDATE_STUDENT, DELETE_STUDENT };
+const DELETE_ALL_STUDENT = async (req, res) => {
+  try {
+    // Delete all entries in the Student collection
+    const result = await Student.deleteMany({});
+
+    // Check if any documents were deleted
+    if (result.deletedCount === 0) {
+      return res
+        .json({ success: false, message: "No Student found to delete." });
+    }
+
+    // Return success message
+    res
+      .status(200)
+      .json({ success: true, message: "All students deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting all students:", error);
+    // Return an error response if something goes wrong
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+};
+
+
+export { ADD_STUDENT, UPDATE_STUDENT, DELETE_STUDENT ,DELETE_ALL_STUDENT};

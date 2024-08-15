@@ -26,6 +26,9 @@ export class TeacherService {
    deleteTeacher(techerId:string):Observable<any>{
      return this.http.delete(this.baseUrl+"/teacher/"+techerId)
    }
+   deleteAllTeacher():Observable<any>{
+    return this.http.delete(this.baseUrl+"/teacher/all")
+  }
 
   
 }
