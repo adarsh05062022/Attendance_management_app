@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { TeacherRoutingModule } from './teacher-routing.module';
 import { HomeComponent } from './home/home.component';
-import { TakeAttendenceComponent } from './take-attendence/take-attendence.component';
-import { EditAttendenceComponent } from './edit-attendence/edit-attendence.component';
+import { TakeAttendenceComponent } from './take-attendance/take-attendence.component';
+import { EditAttendenceComponent } from './edit-attendance/edit-attendence.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
