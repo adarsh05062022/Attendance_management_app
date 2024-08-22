@@ -14,7 +14,8 @@ import { Class, ClassesService } from 'src/app/services/classes.service';
 import { MatStepper } from '@angular/material/stepper';
 import { StudentService } from 'src/app/services/student.service';
 import { ToastrService } from 'ngx-toastr';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
+// import { jsPDF } from 'jspdf';
 
 
 @Component({
