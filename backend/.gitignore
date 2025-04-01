@@ -4,6 +4,8 @@ node_modules/
 # Ignore logs
 logs/
 
+
+.env
 # Ignore configuration files containing sensitive information
 config/*.conf
 
